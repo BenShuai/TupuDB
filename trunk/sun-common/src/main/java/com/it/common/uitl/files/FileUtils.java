@@ -1,6 +1,6 @@
 package com.it.common.uitl.files;
 
-import java.io.File;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,4 +26,45 @@ public class FileUtils {
         }  
 		
 	}
+
+    private static String encoding = "UTF-8";
+    /**
+     * 读取文件 全部内容
+     * @param filePath
+     * @return
+     */
+	public static String readFile(String filePath) throws Exception {
+        File fileObj = new File(filePath);
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(fileObj),encoding);
+        BufferedReader br = new BufferedReader(reader);
+        StringBuilder context=new StringBuilder();
+        while (true){
+            String line=br.readLine();
+            if(line!=null){
+                context.append(line);
+            }else {
+                break;
+            }
+        }
+        br.close();
+        reader.close();
+        return context.toString();
+    }
+
+    /**
+     * 写入文件
+     * @param filePath
+     * @param context
+     * @throws Exception
+     */
+    public static void writFile(String filePath,String context) throws Exception {
+        FileOutputStream fos = new FileOutputStream(filePath);
+        OutputStreamWriter osw = new OutputStreamWriter(fos, encoding);
+        osw.write(context);
+        osw.flush();
+        osw.close();
+        fos.close();
+    }
+
+
 }

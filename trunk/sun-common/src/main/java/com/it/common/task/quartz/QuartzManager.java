@@ -5,8 +5,6 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import java.text.ParseException;
 
-import static org.quartz.JobBuilder.newJob;
-
 public class QuartzManager {
 
     private static SchedulerFactory schedulerFactory = new StdSchedulerFactory();
@@ -119,7 +117,7 @@ public class QuartzManager {
     }
 
 //    public static void main(String[] args) {
-//        QuartzManager.addJob("调度信息","com.it.demo.task.MyJob","10/2 * * * * ?");
-//        QuartzManager.addJob("调度信息22222222","com.it.demo.task.MyJob","10/2 * * * * ?");
+//        QuartzManager.addJob("调度信息","com.it.sun.task.quartz.MyJob","10/2 * * * * ?");
+//        QuartzManager.addJob("调度信息22222222","com.it.sun.task.quartz.MyJob","10/2 * * * * ?");
 //    }
 }

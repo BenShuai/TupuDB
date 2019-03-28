@@ -93,7 +93,7 @@ public class StreamUtils {
 	}
 
 	/**
-	 * 将String转换成InputStream
+	 * 将String转换成byte数组
 	 * 
 	 * @param in
 	 * @return
