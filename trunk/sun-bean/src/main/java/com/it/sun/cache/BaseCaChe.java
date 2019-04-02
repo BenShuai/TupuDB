@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 public class BaseCaChe {
-    private static JSONArray primaryCache;//初级缓存【单例】
-
-
-
+    private static JSONArray primaryCache = new JSONArray();//初级缓存【单例】
 
 
     public static JSONArray getPrimaryCache() {
@@ -18,7 +15,11 @@ public class BaseCaChe {
         BaseCaChe.primaryCache = primaryCache;
     }
 
-    public static synchronized boolean addChildJSONObject(JSONObject child){//在初级缓存中添加子项
-        return BaseCaChe.primaryCache.add(child);
+    public static synchronized boolean addChildJSONObject(JSONObject child) {//在初级缓存中添加子项
+        return primaryCache.add(child);
+    }
+
+    public static synchronized boolean delChildJSONObject(JSONObject child) {//在初级缓存中删除子项
+        return primaryCache.remove(child);
     }
 }
