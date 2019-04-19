@@ -70,4 +70,22 @@ public class FileUtils {
     }
 
 
+    /**
+     * 追加写入文件内容
+     * @param filePath
+     * @param context
+     * @throws Exception
+     */
+    public static void addWritFile(String filePath, String context) throws Exception {
+        File f=new File(filePath);
+        FileWriter fw = new FileWriter(f, true);
+        PrintWriter pw = new PrintWriter(fw);
+        pw.println(context+"\r\n");
+        pw.flush();
+        try {
+            pw.close();
+            fw.close();
+        } catch (IOException e) { }
+    }
+
 }

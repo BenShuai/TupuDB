@@ -81,4 +81,14 @@ public class SampleController {
         BaseCaChe.delChildJSONObject(jo);
         return "{\"code\":\""+ErrorCode.SUCCESS+"\",\"msg\":\"删除成功\"}";
     }
+
+    @ApiOperation(value="添加数据关系", notes="添加数据关系")
+    @RequestMapping(value="/addObjData", method= {RequestMethod.GET,RequestMethod.POST})
+    public String addObjData(@ApiParam(name = "obj", value = "对象A", required = true) @RequestParam(required = true) String obj,
+                          HttpServletRequest request, HttpServletResponse response) {
+        JSONObject jo=new JSONObject();
+        jo.put("obj",obj);
+        BaseCaChe.addChildJSONObject(jo);
+        return "{\"code\":\""+ErrorCode.SUCCESS+"\",\"msg\":\"添加成功\"}";
+    }
 }
