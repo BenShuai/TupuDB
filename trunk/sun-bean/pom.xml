@@ -17,7 +17,6 @@
 	<name>sun-bean</name>
 	<description>bean实体类或其他业务辅助类</description>
 
-
 	<dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -26,22 +25,21 @@
         </dependency>
 
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
 		</dependency>
+
+		<!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-context</artifactId>-->
+			<!--<version>4.3.19.RELEASE</version>-->
+        <!--</dependency>-->
 
 	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<!-- 没有该配置，devtools 不生效 -->
-					<fork>true</fork>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

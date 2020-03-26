@@ -21,7 +21,7 @@
 
         <bsae.version>2.0.4.RELEASE</bsae.version>
 
-        <fastjson.version>1.2.47</fastjson.version>
+        <fastjson.version>1.2.58</fastjson.version>
         <pagehelper.version>1.2.3</pagehelper.version>
 
         <commons-lang3.version>3.7</commons-lang3.version>
@@ -70,24 +70,10 @@
                 <version>${fastjson.version}</version>
             </dependency>
 
-
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${swagger2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${swagger2.version}</version>
-            </dependency>
-
-
-
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.SR7</version>
+                <version>Edgware.SR2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -97,7 +83,6 @@
                 <version>${commons-lang3.version}</version>
             </dependency>
 
-            <!-- 异步执行会依赖 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
                 <artifactId>pagehelper-spring-boot-starter</artifactId>
@@ -108,24 +93,6 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
-            </dependency>
-
-            <!-- http -->
-            <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>${collections.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpmime</artifactId>
-                <version>${httpmime.version}</version>
             </dependency>
 
             <dependency>
@@ -139,24 +106,6 @@
                 <version>${commons.codec.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <!-- QZ调度需要的包 -->
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz</artifactId>
-                <version>${quartz.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz-jobs</artifactId>
-                <version>${quartz.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>commons-beanutils</groupId>
@@ -164,7 +113,6 @@
                 <version>${commons.beanutils.version}</version>
             </dependency>
 
-            <!-- excel导入导出 -->
             <dependency>
                 <groupId>org.jeecg</groupId>
                 <artifactId>easypoi-base</artifactId>
@@ -176,6 +124,7 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi.ooxml.version}</version>
             </dependency>
+
 
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -197,10 +146,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
