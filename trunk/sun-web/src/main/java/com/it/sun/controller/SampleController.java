@@ -95,14 +95,17 @@ public class SampleController {
         JSONObject resultJo = new JSONObject();
         resultJo.put("code", ErrorCode.SUCCESS.getStatus());
         resultJo.put("msg", "删除成功");
-        if(!DataEdit.delDataRelation(baseConfigProperties.data,obja.trim(),relation!=null?relation.trim():null,objb!=null?objb.trim():null)){
+        if(obja.trim().equals(objb.trim())){
+            resultJo.put("code", ErrorCode.ERROR.getStatus());
+            resultJo.put("msg", "对象A 和 对象B 不能是同一个对象");
+        }else if(!DataEdit.delDataRelation(baseConfigProperties.data,obja.trim(),relation.trim(),objb.trim())){
             resultJo.put("code", ErrorCode.ERROR.getStatus());
             resultJo.put("msg", "删除失败");
         }
         return resultJo.toJSONString();
     }
 
-    @ApiOperation(value="b:查询数据关系", notes="查询数据关系",position = 6)
+    @ApiOperation(value="c:查询数据关系", notes="查询数据关系",position = 6)
     @RequestMapping(value="/queDataRelation", method= {RequestMethod.POST})
     public String queDataRelation(@ApiParam(name = "obja", value = "对象A", required = true) @RequestParam(required = true) String obja,
                           @ApiParam(name = "relation", value = "对象A和B的关系 → A 的 XXX 是 B", required = false) @RequestParam(required = false) String relation,

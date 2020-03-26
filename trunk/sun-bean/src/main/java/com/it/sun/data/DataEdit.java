@@ -11,6 +11,25 @@ import java.io.File;
  * 数据编辑类
  */
 public class DataEdit {
+
+    /**
+     * 返回合法的可以当作目录的地址
+     * @param path 原始地址
+     * @return
+     */
+    private static String getDirStr(String path){
+        return path.replaceAll("/", "")
+                .replaceAll("\\\\", "")
+                .replaceAll(":", "")
+                .replaceAll("\\*", "")
+                .replaceAll("\\?", "")
+                .replaceAll("\"", "")
+                .replaceAll("<", "")
+                .replaceAll(">", "")
+                .replaceAll("|", "")
+                .replaceAll(" ", "");
+    }
+
     /**
      * 写入数据
      * @param basePath 配置的数据存储根目录
@@ -24,16 +43,7 @@ public class DataEdit {
         Boolean flag=false;
         if(BaseUtil.CreDir(basePath)) {
             //开始去掉对象数据中的不可以当作目录名的字符
-            objName = objName.replaceAll("/", "")
-                    .replaceAll("\\\\", "")
-                    .replaceAll(":", "")
-                    .replaceAll("\\*", "")
-                    .replaceAll("\\?", "")
-                    .replaceAll("\"", "")
-                    .replaceAll("<", "")
-                    .replaceAll(">", "")
-                    .replaceAll("|", "")
-                    .replaceAll(" ","");
+            objName = getDirStr(objName);
             StringBuilder path = new StringBuilder(basePath);
             for (int i = 1; i <= objName.length(); i++) {
                 path.append(objName.substring(0, i)).append("/");
@@ -81,16 +91,7 @@ public class DataEdit {
         Boolean flag=false;
         if(BaseUtil.CreDir(basePath)) {
             //开始去掉对象数据中的不可以当作目录名的字符
-            objName = objName.replaceAll("/", "")
-                    .replaceAll("\\\\", "")
-                    .replaceAll(":", "")
-                    .replaceAll("\\*", "")
-                    .replaceAll("\\?", "")
-                    .replaceAll("\"", "")
-                    .replaceAll("<", "")
-                    .replaceAll(">", "")
-                    .replaceAll("|", "")
-                    .replaceAll(" ","");
+            objName = getDirStr(objName);
             StringBuilder path = new StringBuilder(basePath);
             for (int i = 1; i <= objName.length(); i++) {
                 path.append(objName.substring(0, i)).append("/");
@@ -119,16 +120,7 @@ public class DataEdit {
     public static JSONArray queData(String basePath,String dataStr,String searchKey) {
         if (BaseUtil.CreDir(basePath)) {
             //开始去掉对象数据中的不可以当作目录名的字符
-            dataStr = dataStr.replaceAll("/", "")
-                    .replaceAll("\\\\", "")
-                    .replaceAll(":", "")
-                    .replaceAll("\\*", "")
-                    .replaceAll("\\?", "")
-                    .replaceAll("\"", "")
-                    .replaceAll("<", "")
-                    .replaceAll(">", "")
-                    .replaceAll("|", "")
-                    .replaceAll(" ", "");
+            dataStr = getDirStr(dataStr);
             StringBuilder path = new StringBuilder(basePath);
             for (int i = 1; i <= dataStr.length(); i++) {
                 path.append(dataStr.substring(0, i)).append("/");
@@ -179,16 +171,7 @@ public class DataEdit {
         Boolean flag=false;
         if (BaseUtil.CreDir(basePath)) {
             //开始去掉对象数据中的不可以当作目录名的字符
-            obja = obja.replaceAll("/", "")
-                    .replaceAll("\\\\", "")
-                    .replaceAll(":", "")
-                    .replaceAll("\\*", "")
-                    .replaceAll("\\?", "")
-                    .replaceAll("\"", "")
-                    .replaceAll("<", "")
-                    .replaceAll(">", "")
-                    .replaceAll("|", "")
-                    .replaceAll(" ", "");
+            obja = getDirStr(obja);
             StringBuilder pathA = new StringBuilder(basePath);
             for (int i = 1; i <= obja.length(); i++) {
                 pathA.append(obja.substring(0, i)).append("/");
@@ -197,16 +180,7 @@ public class DataEdit {
                     break;
                 }
             }
-            objb = objb.replaceAll("/", "")
-                    .replaceAll("\\\\", "")
-                    .replaceAll(":", "")
-                    .replaceAll("\\*", "")
-                    .replaceAll("\\?", "")
-                    .replaceAll("\"", "")
-                    .replaceAll("<", "")
-                    .replaceAll(">", "")
-                    .replaceAll("|", "")
-                    .replaceAll(" ", "");
+            objb = getDirStr(objb);
             StringBuilder pathB = new StringBuilder(basePath);
             for (int i = 1; i <= objb.length(); i++) {
                 pathB.append(objb.substring(0, i)).append("/");
@@ -224,42 +198,41 @@ public class DataEdit {
 
                 ////// 先存 A 对象的关系数据
                 String filePathA = pathA.append("relation.tp").toString();//关系数据存储的文件地址
-                File fileA = new File(filePathA);
-                JSONArray jaA = new JSONArray();
-                if (fileA.exists()) {
-                    String baseData = BaseUtil.ReadTxt(filePathA);
-                    if (!StringUtils.isEmpty(baseData)) {
-                        jaA = JSONArray.parseArray(baseData);
-                    }
-                }
-                for (int i=0;i<jaA.size();i++){
-                    if(jaA.getJSONObject(i).equals(jo)){//数据重复，就不保存没直接返回成功
-                        return true;
-                    }
-                }
-                jaA.add(jo);
-                BaseUtil.WriteTxt(filePathA, jaA.toJSONString());
+                writRelation( filePathA, jo);
 
                 ////// 再存 B 对象的关系数据
                 String filePathB = pathB.append("relation.tp").toString();//关系数据存储的文件地址
-                File fileB = new File(filePathB);
-                JSONArray jaB = new JSONArray();
-                if (fileB.exists()) {
-                    String baseData = BaseUtil.ReadTxt(filePathB);
-                    if (!StringUtils.isEmpty(baseData)) {
-                        jaB = JSONArray.parseArray(baseData);
-                    }
-                }
-                for (int i=0;i<jaB.size();i++){
-                    if(jaB.getJSONObject(i).equals(jo)){//数据重复，就不保存没直接返回成功
-                        return true;
-                    }
-                }
-                jaB.add(jo);
-                BaseUtil.WriteTxt(filePathB, jaB.toJSONString());
+                writRelation( filePathB, jo);
+
                 flag=true;
             }
         }
+        return flag;
+    }
+
+    /**
+     * 关系写入文件
+     * @param filePath 关系文件地址
+     * @param jo       关系数据
+     * @return
+     */
+    private static Boolean writRelation(String filePath,JSONObject jo){
+        Boolean flag=false;
+        File fileA = new File(filePath);
+        JSONArray jaA = new JSONArray();
+        if (fileA.exists()) {
+            String baseData = BaseUtil.ReadTxt(filePath);
+            if (!StringUtils.isEmpty(baseData)) {
+                jaA = JSONArray.parseArray(baseData);
+            }
+        }
+        for (int i=0;i<jaA.size();i++){
+            if(jaA.getJSONObject(i).equals(jo)){//数据重复，就不保存没直接返回成功
+                return true;
+            }
+        }
+        jaA.add(jo);
+        BaseUtil.WriteTxt(filePath, jaA.toJSONString());
         return flag;
     }
 
@@ -274,16 +247,7 @@ public class DataEdit {
     public static JSONArray queDataRelation(String basePath,String obja,String relation,String objb){
         if (BaseUtil.CreDir(basePath)) {
             //开始去掉对象数据中的不可以当作目录名的字符
-            obja = obja.replaceAll("/", "")
-                    .replaceAll("\\\\", "")
-                    .replaceAll(":", "")
-                    .replaceAll("\\*", "")
-                    .replaceAll("\\?", "")
-                    .replaceAll("\"", "")
-                    .replaceAll("<", "")
-                    .replaceAll(">", "")
-                    .replaceAll("|", "")
-                    .replaceAll(" ", "");
+            obja = getDirStr(obja);
             StringBuilder pathA = new StringBuilder(basePath);
             for (int i = 1; i <= obja.length(); i++) {
                 pathA.append(obja.substring(0, i)).append("/");
@@ -348,7 +312,72 @@ public class DataEdit {
      */
     public static Boolean delDataRelation(String basePath,String obja,String relation,String objb){
         Boolean flag=false;
-        
+        if (BaseUtil.CreDir(basePath)) {
+            //开始去掉对象数据中的不可以当作目录名的字符
+            obja = getDirStr(obja);
+            StringBuilder pathA = new StringBuilder(basePath);
+            for (int i = 1; i <= obja.length(); i++) {
+                pathA.append(obja.substring(0, i)).append("/");
+            }
+            File f = new File(pathA.toString());
+            if (f.exists()) {
+                String filePath = pathA.append("relation.tp").toString();//关系数据存储的文件地址
+                delRelation(filePath,obja, relation,objb);
+            }
+
+            //开始去掉对象数据中的不可以当作目录名的字符
+            objb = getDirStr(objb);
+            StringBuilder pathB = new StringBuilder(basePath);
+            for (int i = 1; i <= objb.length(); i++) {
+                pathB.append(objb.substring(0, i)).append("/");
+            }
+            File fB = new File(pathB.toString());
+            if (fB.exists()) {
+                String filePath = pathB.append("relation.tp").toString();//关系数据存储的文件地址
+                delRelation(filePath,obja, relation,objb);
+            }
+            flag=true;
+        }
         return flag;
     }
+
+
+
+    /**
+     * 删除关系
+     * @param filePath 关系数据文件
+     * @param obja     对象A
+     * @param relation 关系
+     * @param objb     对象B
+     * @return
+     */
+    private static Boolean delRelation(String filePath,String obja,String relation,String objb){
+        Boolean flag=false;
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                String baseData = BaseUtil.ReadTxt(filePath);
+                if (!StringUtils.isEmpty(baseData)) {
+                    JSONArray ja = JSONArray.parseArray(baseData);
+                    //开始删除关系
+                    if(ja!=null && ja.size()>0){
+                        for (int i=0;i<ja.size();i++){
+                            JSONObject jo=ja.getJSONObject(i);
+                            if((jo.getString("objA").indexOf(obja) != -1 || jo.getString("objB").indexOf(obja) != -1)
+                                    && jo.getString("relation").indexOf(relation) != -1
+                                    && (jo.getString("objA").indexOf(objb) != -1 || jo.getString("objB").indexOf(objb) != -1)){
+                                ja.remove(i);
+                                i--;
+                            }
+                        }
+                        BaseUtil.WriteTxt(filePath,ja.toJSONString());//重新写入
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
 }
