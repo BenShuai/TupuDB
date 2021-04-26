@@ -25,7 +25,7 @@
         <pagehelper.version>1.2.3</pagehelper.version>
 
         <commons-lang3.version>3.7</commons-lang3.version>
-        <commons.io.version>2.5</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <commons.codec.version>1.10</commons.codec.version>
         <log4j.version>1.2.17</log4j.version>
         <httpmime.version>4.5</httpmime.version>
