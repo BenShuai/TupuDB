@@ -36,7 +36,7 @@
         <swagger.version>1.7.0.RELEASE</swagger.version>
         <swagger.core.version>1.5.9</swagger.core.version>
         <swagger2.version>2.7.0</swagger2.version>
-        <jackson.version>2.10.3</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
         <quartz.version>2.2.3</quartz.version>
         <junit.version>4.12</junit.version>
         <commons.beanutils.version>1.9.3</commons.beanutils.version>
